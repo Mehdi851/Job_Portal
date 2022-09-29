@@ -1,0 +1,141 @@
+﻿
+@{
+    Layout = null;
+    if (ViewBag.Massage!=null)
+    {
+        <script>
+            alert('@ViewBag.Massage');
+        </script>
+    }
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <title>Login</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: rgb(219,226,226);
+        }
+
+        .row {
+            background: white;
+            border-radius: 30px;
+            box-shadow: 12px 12px 22px grey;
+            height: 800px;
+        }
+
+        img {
+            border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+           
+        }
+
+        .btn1 {
+            border: none;
+            outline: none;
+            height: 70px;
+            width: 100%;
+            background-color: black;
+            color: white;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+            .btn1:hover {
+                background-color: white;
+                color: black;
+                border: 1px solid;
+            }
+    </style>
+</head>
+<body>
+
+    <section class="Form my-4 mx-5">
+        <div class="container">
+            <div class="row no-gutters">
+                <div class="col-lg-5">
+                    <img src="~/Images/Employer/A.jpg" class="img-fluid" alt="Login Image" />
+                </div>
+                <div class="col-lg-7 px-5 pt-5">
+
+                    <h4>Sign into your account</h4>
+                    <form action="/Employeer/Login" method="post" onsubmit="return validateform()">
+                        <div class="form-row">
+                            <div class="col-lg-7">
+                                <input type="email" class="form-control my-3 p-4" name="Email" id="email" placeholder="Email Address" />
+                            </div>
+                        </div><span id="Invalidemail" class="text-danger"></span>
+                        <div class="form-row">
+                            <div class="col-lg-7">
+                                <input type="password" class="form-control my-3 p-4" name="Password" id="pass" placeholder="*****" />
+                            </div>
+                        </div> <span id="Invalidpass" class="text-danger"></span>
+                        <div class="form-row">
+                            <div class="col-lg-7">
+                                <button type="submit" class="btn1 my-3 p-4 mt-3 mb-5 ">Login</button>
+                            </div>
+                        </div>
+                        <p>Don't have an account<a href="/Employeer/Register">Register</a><br />
+                            <a href="/Employeer/ForgotPassword">Forgot Password</a>
+                        
+                        </p>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    @*<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>*@
+    <script>
+       
+        function validateform() {
+            console.log("test");
+
+            var email = $("#email").val();
+            var pass = $("#pass").val();
+
+
+            document.getElementById("Invalidemail").innerHTML = "";
+            document.getElementById("Invalidpass").innerHTML = "";
+
+
+
+
+            if (email == "" || email == undefined) {
+                document.getElementById("Invalidemail").innerHTML = "Please Enter Your Email";
+                return false;
+            }
+
+            if (pass == "" || pass == undefined) {
+                document.getElementById("Invalidpass").innerHTML = "Please Enter Your Password";
+                return false;
+            }
+
+            else {
+                console.log("valid");
+                return true;
+            }
+            return false;
+        }
+    </script>
+</body>
+</html>

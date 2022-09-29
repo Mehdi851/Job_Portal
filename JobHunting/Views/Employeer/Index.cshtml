@@ -1,0 +1,80 @@
+﻿@using JobHunting.Models;
+@model IEnumerable<JobsModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutEmp.cshtml";
+    int count = 1;
+}
+
+<style>
+    .table {
+        box-shadow: 5px 5px 5px grey;
+        border-radius:10px;
+    }
+    a{
+        padding:10px !important;
+    }
+    
+</style>
+
+<div class="container">
+    <table class="table table-striped table-bordered" id="myTable">
+        <thead>
+            <tr>
+                <th>No#</th>
+                <th>Job Title</th>
+                <th>Company Name</th>
+                <th>City</th>
+                <th>Category</th>
+                <th>Postion</th>
+                <th>Salary</th>
+                <th>Required Age</th>
+                <th>Gender</th>
+                <th>Job Type</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                foreach (JobsModel jobs in Model)
+                {
+                    <tr>
+                        <th>@count</th>
+                        <th>@jobs.Title</th>
+                        <th>@jobs.CompanyName</th>
+                        <th>@jobs.City</th>
+                        <th>@jobs.Category</th>
+                        <th>@jobs.Postion</th>
+                        <th>@jobs.Salary</th>
+                        <th>@jobs.RequiredAge</th>
+                        <th>@jobs.Gender</th>
+                        <th>@jobs.Type</th>
+                        <th>
+                            <a class="btn btn-sm btn-primary" style="background-color:blue!important;" href="/Employeer/JobDetail/@jobs.Id">Detail
+
+                            </a>
+                            <a class="btn btn-sm btn-success" style="background-color:green !important;" href="/Employeer/UpdateJob/@jobs.Id">Update
+
+                               
+                            </a>
+                            <a class="btn btn-sm btn-danger" style="background-color:orangered !important;" href="/Employeer/Delete/@jobs.Id"onclick="return confirm('Are you Sure want to delete this Job')" >Delete
+                               
+                            </a>
+                        </th>
+                    </tr>
+                    count++;
+                }
+            }
+
+        </tbody>
+    </table>
+</div>
+@section scripts{
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}

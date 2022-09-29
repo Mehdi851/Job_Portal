@@ -1,0 +1,232 @@
+﻿@using JobHunting.Models
+@model JobHunting.Models.ApplicationModel
+
+@{
+    ViewBag.Title = "JobApply";
+    Layout = "~/Views/Shared/_LayoutJobSeeker.cshtml";
+    JobsModel job = ViewBag.Job;
+    string jobTitle = job.Title;
+    int jobId = job.Id;
+}
+
+
+<div class="container">
+    <div class="row">
+        @*@using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()*@
+        <form action="" method="post" onsubmit="return valid()"enctype="multipart/form-data">
+            <div class="form-horizontal">
+                <h4>ApplicationModel</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        @Html.Label("Job Title", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <input class="form-control" name="JobName" value="@jobTitle" readonly />
+                            @Html.ValidationMessageFor(model => model.JobId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FatherName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.FatherName, new { htmlAttributes = new { @class = "form-control", @id = "FatherName", @placeholder = "Enter Your Father Name" } })
+                            @Html.ValidationMessageFor(model => model.FatherName, "", new { @class = "text-danger", @id = "FatherNameError" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", @id = "City", @placeholder = "Enter Your City Name" } })
+                            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger", @id = "CityError" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @id = "Address", @placeholder = "Enter Your Address" } })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger", @id = "AddressError" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RequiredSalary, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.RequiredSalary, new { htmlAttributes = new { @class = "form-control", @id = "ReqSalary", @placeholder = "Enter Your Required Salary" } })
+                            @Html.ValidationMessageFor(model => model.RequiredSalary, "", new { @class = "text-danger", @id = "ReqSalaryError" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LatestQualification, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.LatestQualification, new { htmlAttributes = new { @class = "form-control", @id = "Qualification", @placeholder = "Enter Your Latest Qualification" } })
+                            @Html.ValidationMessageFor(model => model.LatestQualification, "", new { @class = "text-danger", @id = "QualificationError" })
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ApplicantName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ApplicantName, new { htmlAttributes = new { @class = "form-control", @id = "ApplicantName", @placeholder = "Enter Your Name" } })
+                            @Html.ValidationMessageFor(model => model.ApplicantName, "", new { @class = "text-danger", @id = "ApplicantNameError" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CNIC, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.CNIC, new { htmlAttributes = new { @class = "form-control", @id = "CNIC", @placeholder = "XXXX-XXXXXXX-X" } })
+                            @Html.ValidationMessageFor(model => model.CNIC, "", new { @class = "text-danger", @id = "CNICError" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control", @id = "Country", @placeholder = "Enter Your Countery Name" } })
+                            @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger", @id = "CountryError" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Experience, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Experience, new { htmlAttributes = new { @class = "form-control", @id = "Experience", @placeholder = "Enter Your Experience in Years" } })
+                            @Html.ValidationMessageFor(model => model.Experience, "", new { @class = "text-danger", @id = "ExperienceError" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CVurl, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <input type="file" name="PDFFile" class="form-control" id="CV" />
+                            @*@Html.EditorFor(model => model.CVurl, new { htmlAttributes = new { @class = "form-control" } })*@
+                            @Html.ValidationMessageFor(model => model.CVurl, "", new { @class = "text-danger", @id = "CVError" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Massage, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <textarea name="Massage" class="form-control" style="height:100px;" id="Massage"></textarea>
+                            @*@Html.TextAreaFor(model => model.Massage, new { htmlAttributes = new { @class = "form-control" } })*@
+                            @Html.ValidationMessageFor(model => model.Massage, "", new { @class = "text-danger", @id = "MassageError" })
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-12">
+
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+            @*  *@}
+        </form>
+    </div>
+
+
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section scripts{
+    <script>
+
+        function valid() {
+
+            var FatherName = $("#FatherName").val();
+            var City = $("#City").val();
+            var Address = $("#Address").val();
+            var ReqSalary = $("#ReqSalary").val();
+            var Qualification = $("#Qualification").val();
+            var ApplicantName = $("#ApplicantName").val();
+            var CNIC = $("#CNIC").val();
+            var Country = $("#Country").val();
+            var Experience = $("#Experience").val();
+            var CV = $("#CV").val();
+            var Massage = $("#Massage").val();
+            myRegExp = new RegExp(/\d{5}-\d{7}-\d/);
+
+            document.getElementById("FatherNameError").innerHTML = "";
+            document.getElementById("CityError").innerHTML = "";
+            document.getElementById("AddressError").innerHTML = "";
+            document.getElementById("ReqSalaryError").innerHTML = "";
+            document.getElementById("QualificationError").innerHTML = "";
+            document.getElementById("ApplicantNameError").innerHTML = "";
+            document.getElementById("CNICError").innerHTML = "";
+            document.getElementById("CountryError").innerHTML = "";
+            document.getElementById("ExperienceError").innerHTML = "";
+            document.getElementById("CV").innerHTML = "";
+            document.getElementById("MassageError").innerHTML = "";
+           
+            //alert("test");
+
+            if (FatherName == "" || FatherName == undefined) {
+
+                document.getElementById("FatherNameError").innerHTML = "Please Enter Your Father Name";
+                //alert("invalid");
+                return false;
+            }
+            if (City == "" || City == undefined) {
+                document.getElementById("CityError").innerHTML = "Please Enter Your City";
+                return false;
+            }
+            if (Address == "" || Address == undefined) {
+                document.getElementById("AddressError").innerHTML = "Please Enter Your Address";
+                return false;
+            }
+            if (ReqSalary == "" || ReqSalary == undefined) {
+                document.getElementById("ReqSalaryError").innerHTML = "Please Enter Required Salary";
+                return false;
+            }
+            if (Qualification == "" || Qualification == undefined) {
+                document.getElementById("QualificationError").innerHTML = "Please Enter Your Qualification";
+                return false;
+            }
+            if (ApplicantName == "" || ApplicantName == undefined) {
+                document.getElementById("ApplicantNameError").innerHTML = "Please Enter Job Type";
+                return false;
+            }
+            
+            if (CNIC == "" || CNIC == undefined) {
+                document.getElementById("CNICError").innerHTML = "Please Enter Your CNIC";
+                return false;
+            } if (!myRegExp.test(CNIC)) {
+                document.getElementById("CNICError").innerHTML = "Please Enter Your CNIC in Correct Formate";
+                return false;
+            }
+            if (Country == "" || Country == undefined) {
+                document.getElementById("CountryError").innerHTML = "Please Enter Job Category";
+                return false;
+            }
+            if (Experience == "" || Experience == undefined) {
+                document.getElementById("ExperienceError").innerHTML = "Please Enter Company Name";
+                return false;
+            }
+            if (CV == "" || CV == undefined) {
+                document.getElementById("CVError").innerHTML = "Please Upload Your CV";
+                return false;
+            }
+            if (Massage == "" || Massage == undefined) {
+                document.getElementById("MassageError").innerHTML = "Please Enter Massage";
+                return false;
+            }
+            
+            else {
+                console.log("valid");
+                return true;
+            }
+            return false;
+
+        }
+
+    </script>
+
+}

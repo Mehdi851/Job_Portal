@@ -1,0 +1,250 @@
+﻿@model JobHunting.Models.EmployerModel
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_LayoutEmp.cshtml";
+    string pic="";
+    if (Model.ProfilePicURL!=null)
+    {
+        pic= Model.ProfilePicURL;
+
+    }
+    else
+    {
+        pic = "/Images/user4.png";
+    }
+}
+
+@*<div>
+    <h4>EmployerModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProfilePicURL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProfilePicURL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CompanyName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompanyName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@
+
+<div>
+
+    <style>
+        body {
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        .image-container {
+            position: relative;
+        }
+
+        .image {
+            opacity: 1;
+            display: block;
+            width: 100%;
+            height: auto;
+            transition: .5s ease;
+            backface-visibility: hidden;
+        }
+
+        .middle {
+            transition: .5s ease;
+            opacity: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .image-container:hover .image {
+            opacity: 0.3;
+        }
+
+        .image-container:hover .middle {
+            opacity: 1;
+        }
+    </style>
+    <div class="container">
+        <h4>User Profile</h4>
+        <hr />
+        <div class="row">
+            <div class="col-8 col-lg-offset-2">
+                <div class="card">
+
+                    <div class="card-body">
+                        <div class="card-title mb-4">
+                            <div class="d-flex justify-content-start">
+                                <div class="image-container">
+                                    <img src="@Url.Content(@pic)" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" />
+                                    <div class="middle">
+
+                                        <input type="file" style="display: none;" id="profilePicture" name="file" />
+                                    </div>
+                                </div>
+                                <div class="userData ml-3">
+                                    <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold"><a href="javascript:void(0);">@Model.Email</h2>
+                                    <h6 class="d-block"><a href="javascript:void(0)"> Model.Username)</h6>
+                                </div>
+                                <div class="ml-auto">
+                                    <input type="button" class="btn btn-primary d-none" id="btnDiscard" value="Discard Changes" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="basicInfo-tab" data-toggle="tab" href="#basicInfo" role="tab" aria-controls="basicInfo" aria-selected="true">Basic Info</a>
+                                    </li>
+
+                                </ul>
+                                <div class="tab-content ml-1" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basicInfo-tab">
+
+
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">Email</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                @Model.Email
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">UserName</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                @Model.Username
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">Latest Qualification</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                @Html.DisplayFor(model => model.CompanyName)
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <a class="btn btn-outline-primary" href="../Employeer/UpdateProfile/@Model.Id">Update Profile</a>
+
+
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+@section scripts{
+    <script>
+
+            $(document).ready(function () {
+                $imgSrc = $('#imgProfile').attr('src');
+                function readURL(input) {
+
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#imgProfile').attr('src', e.target.result);
+                        };
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+                $('#btnChangePicture').on('click', function () {
+                    // document.getElementById('profilePicture').click();
+                    if (!$('#btnChangePicture').hasClass('changing')) {
+                        $('#profilePicture').click();
+                    }
+                    else {
+                        // change
+                    }
+                });
+                $('#profilePicture').on('change', function () {
+                    readURL(this);
+                    $('#btnChangePicture').addClass('changing');
+                    $('#btnChangePicture').attr('value', 'Confirm');
+                    $('#btnDiscard').removeClass('d-none');
+                    // $('#imgProfile').attr('src', '');
+                });
+                $('#btnDiscard').on('click', function () {
+                    // if ($('#btnDiscard').hasClass('d-none')) {
+                    $('#btnChangePicture').removeClass('changing');
+                    $('#btnChangePicture').attr('value', 'Change');
+                    $('#btnDiscard').addClass('d-none');
+                    $('#imgProfile').attr('src', $imgSrc);
+                    $('#profilePicture').val('');
+                    // }
+                });
+            });
+    </script>
+
+}

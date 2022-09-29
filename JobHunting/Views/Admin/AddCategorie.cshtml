@@ -1,0 +1,87 @@
+﻿@model JobHunting.Models.JobCategoryModel
+
+@{
+    ViewBag.Title = "AddCategorie";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Add Pictures</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/Admin/Index">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="/Admin/Categories">All Categories</a></li>
+                    <li class="breadcrumb-item active">Add Category </li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+<div class="content">
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="card card-primary col-6">
+                <div class="card-body">
+                    <div class="card-header">
+                        <h3 class="card-title">Add New Category</h3>
+                    </div>
+                    <form action="/Admin/AddCategorie" method="post" onsubmit="return valid()" enctype="multipart/form-data">
+                        <div class="card-body">
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Category Title</label>
+                                <input type="text" class="form-control" name="Title" id="Title" placeholder="Enter Title">
+                            </div>
+                            <div id="TitleInvalid" class="text-danger"></div>
+
+                        </div>
+                        <!-- /.card-body -->
+                        <input type="submit" class="btn btn-primary" value="Submit" />
+
+                    </form>
+
+
+                </div>
+            </div>
+            <!-- /.card -->
+            <!-- /.col-md-6 -->
+
+        </div>
+        <!-- /.row -->
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Categories")
+</div>
+@section scripts{
+    <script>
+        function valid() {
+
+            var Title = $("#Title").val();
+            document.getElementById("TitleInvalid").innerHTML = "";
+            
+            //alert("test");
+
+            if (Title == "" || Title == undefined) {
+                document.getElementById("TitleInvalid").innerHTML = "Please Enter Your Title";
+                return false;
+            }
+            else {
+                console.log("valid");
+                return true;
+            }
+            return false;
+
+        }
+
+      
+    </script>
+}

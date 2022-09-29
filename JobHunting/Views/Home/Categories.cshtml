@@ -1,0 +1,186 @@
+﻿@using JobHunting.Models;
+
+@model dynamic
+@{
+    ViewBag.Title = "Categories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IEnumerable<JobsModel> jobs = Model.Jobs;
+    IEnumerable<JobCategoryModel> Categories = Model.Categories;
+    List<string> citites = new List<string>() { "Islamabad", "Rawalpindi", "Lahore", "Karachi", "Peshawar", "Multan", "Queta" };
+}
+<style>
+    body {
+        font-size: 14px;
+    }
+
+    .btn-white {
+        border: 2px solid #ffffff;
+        border-radius: 1rem;
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 1rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+        .btn-white:hover {
+            background-color: white;
+            color: black;
+            border: 1px solid;
+        }
+
+    .btn1 {
+        color: white;
+    }
+
+    .job {
+        padding: 20px;
+        border-left: 3px solid gray;
+    }
+
+        .job:hover {
+            background-color: lavender;
+            border-left: 3px solid blue;
+        }
+
+    .job-header {
+        background-color: white;
+        border: 0px;
+        padding: 20px;
+    }
+
+    .job-body {
+        background-color: white;
+        border: 0px;
+        color: gray;
+        padding: 20px;
+    }
+
+    .job-footer {
+        border: 0px;
+        background-color: white;
+        color: gray;
+        padding: 20px;
+    }
+
+    .category {
+        border: 1px solid gray;
+        border-left: 3px solid gray;
+        margin: 1px;
+        padding: 5px;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+        .category:hover {
+            background-color: lavender;
+            margin: 2px;
+            border: 2px solid black;
+            border-left: 3px solid blue;
+        }
+
+    .bg-cover {
+        background-size: cover !important;
+        background: #2b5876;
+        background: -webkit-linear-gradient(to right, #4e4376, #2b5876);
+        background: linear-gradient(to right, #4e4376, #2b5876);
+    }
+</style>
+
+
+<div style="" class="jumbotron bg-cover text-white">
+    <div class="container py-5 text-center">
+        <h1 class="display-4 font-weight-bold"></h1>
+        <div class="col-lg-8 offset-2 ">
+            <form action="/Home/JobSearch" method="post">
+                <div class="form-row">
+                    <div class="col-lg-7">
+                        <input type="text" class="form-control my-3 p-4" name="Title" id="email" placeholder="Job Title" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-lg-7">
+                        @Html.DropDownList("City", new SelectList(citites), htmlAttributes: new { @class = "form-control", @id = "city", @placeholder = "Job Title" })
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-lg-7">
+                        <button type="submit" class="btn1 btn btn-default p-3">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="container-fluid" style="margin-top:80px;">
+    <div class="container">
+        <div class="row">
+
+        </div>
+    </div>
+
+
+    <div class="row no-gutters">
+        <div class="col-lg-3">
+            <div class="card" style="">
+                <div class="card-header">
+                    Categories
+                </div>
+                <div class="card-body" style="padding:0px; border:0px;">
+
+                    @foreach (JobCategoryModel category in Categories)
+                    {
+                        <a href="/Home/Categories/@category.Id"><div class="category">@category.Title</div></a>
+                    }
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card" style="border:0px;">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap">
+                        @if (jobs != null)
+                        {
+                            foreach (JobsModel job in jobs)
+                            {
+                                <div class="card col-lg-12 col-sm-12 job" style="padding:0px;">
+                                    <div class="card-header job-header">
+                                        <h1>@job.Title</h1>
+                                        <h4><i class="fa fa-briefcase" aria-hidden="true"></i> @job.CompanyName</h4>
+                                    </div>
+                                    <div class="card-body job-body">
+                                        <h4>@job.ShortDescription</h4>
+                                    </div>
+                                    <div class="card-footer job-footer">
+                                        <div class="col-lg-3 ">
+                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                            @job.TimeofPost.ToString("yyyy-MM-dd")
+
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <i class="fa fa-asterisk"></i>
+                                            @job.Salary
+                                        </div>
+                                        <div class="col-lg-3 ">
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                            @job.City
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            
+        </div>
+    </div>
+</div>
+
